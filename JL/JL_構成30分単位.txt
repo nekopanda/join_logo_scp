@@ -1,0 +1,35 @@
+# join_logo_scp用の実行内容スクリプト
+#
+# 内容：３０分単位の推測でJL_フラグ指定を実行
+#
+
+#----------------------------------------------
+# 分割して実行
+#----------------------------------------------
+Default fdiv_typ  00:30:00            # 1構成期間（標準期間）
+Default fdiv_min  00:23:00            # 1構成期間（最小期間）
+Default fdiv_max  00:30:30            # 1構成期間（最大期間）
+
+If $MAXTIME < ${fdiv_min}+${fdiv_min} # 全体が短い時は分割なし
+  Call "JL_フラグ指定.txt"
+Else                              # 分割設定
+  Set HEADTIME   -1               # 初期設定
+  Set TAILTIME   -1               # 初期設定
+  EvalNum numdiv $MAXTIME/${fdiv_typ}+1   # 繰り返し回数（時間/時間は整数で実施）
+
+  Call "JL_フラグ指定.txt"        # 初期実行（最初の実行前に変数設定するため）
+
+  Set TAILTIME   0                # 最初の位置移動
+  Repeat $numdiv
+    NextTail B $fdiv_typ $fdiv_min $fdiv_max
+    If $LASTEXE
+      Call "JL_フラグ指定.txt"    # 分割を実行
+    EndIf
+  EndRepeat
+
+  If $MAXTIME-$TAILTIME>=$fdiv_typ/2  # 最後までまだ期間あったら
+    Set HEADTIME $TAILTIME
+    Set TAILTIME -1
+    Call "JL_フラグ指定.txt"      # last分割
+  EndIf
+EndIf
