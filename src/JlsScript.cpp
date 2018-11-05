@@ -1460,10 +1460,10 @@ int JlsScript::getCondFlag(const string &strBuf, int pos){
 void JlsScript::getCondFlagConnectWord(string &strCalc, const string &strItem){
 
 	//--- ˜AŒ‹•¶Žš‚Ì’Ç‰Ái”äŠr‰‰ŽZŽq‚ª‚Q€ŠÔ‚É‚È‚¯‚ê‚ÎOR(||)‚ð’Ç‰Á‚·‚éj ---
-	char chPrevBack  = strCalc.back();
 	char chNextFront = strItem.front();
 	char chNextFr2   = strItem[1];
 	if (strCalc.length() > 0 && strItem.length() > 0){
+		char chPrevBack = strCalc.back();
 		if (chPrevBack  != '=' && chPrevBack  != '<' && chPrevBack  != '>' &&
 			chPrevBack  != '|' && chPrevBack  != '&' &&
 			chNextFront != '|' && chNextFront != '&' &&
@@ -2309,6 +2309,17 @@ bool JlsScript::exeCmdLogoTarget(JlsCmdSet &cmdset){
 				setSystemRegListhold(msec_st, false);			// •Ï”‚ÉÝ’è
 				exe_command = true;
 			}
+			break;
+		case JLCMD_SEL_DivFile:
+			{
+				Msec msec = cmdset.limit.getTargetRangeWide().just;
+				exe_command = true;
+				auto it = std::lower_bound(pdata->divFile.begin(), pdata->divFile.end(), msec);
+				if (it == pdata->divFile.end() || *it != msec) {
+					pdata->divFile.insert(it, msec);
+				}
+			}
+			break;
 		default:
 			break;
 	}

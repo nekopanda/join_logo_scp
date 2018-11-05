@@ -337,6 +337,7 @@ namespace jlscmd
 		JLCMD_SEL_GetPos,
 		JLCMD_SEL_GetList,
 		JLCMD_SEL_NextTail,
+		JLCMD_SEL_DivFile,
 		SIZE_JLCMD_SEL
 	};
 	//--- JLスクリプト命令種類 ---

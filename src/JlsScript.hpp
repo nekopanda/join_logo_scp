@@ -170,7 +170,8 @@ const JlscrCmdRecord  CmdDefine[SIZE_JLCMD_SEL] = {
 	{ JLCMD_SEL_Abort,      JLCMD_CAT_LOGO,     1,0,1,0, "Abort"      },
 	{ JLCMD_SEL_GetPos,     JLCMD_CAT_LOGO,     1,3,1,0, "GetPos"     },
 	{ JLCMD_SEL_GetList,    JLCMD_CAT_LOGO,     1,3,1,0, "GetList"    },
-	{ JLCMD_SEL_NextTail,   JLCMD_CAT_NEXT,     1,3,1,1, "NextTail"   }
+	{ JLCMD_SEL_NextTail,   JLCMD_CAT_NEXT,     1,3,1,1, "NextTail"   },
+	{ JLCMD_SEL_DivFile,    JLCMD_CAT_LOGO,     1,1,1,0, "DivFile" }
 };
 //--- ï ñºê›íË ---
 static const int SIZE_JLSCR_CMDALIAS = 2;

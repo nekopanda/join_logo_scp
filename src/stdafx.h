@@ -19,5 +19,6 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include <stdlib.h>
 #include <string.h>

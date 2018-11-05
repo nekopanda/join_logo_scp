@@ -257,6 +257,7 @@ public:
 	DtExtOptRecord				extOpt;			// 外部設定オプション
 	RecordHoldFromCmd 			recHold;		// コマンドから決定される設定値
 	vector<int>					resultTrim;		// 出力結果（カット位置）
+	vector<int>         divFile;    // ファイル分割位置
 
 private:
 	// 格納データ

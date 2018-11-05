@@ -93,6 +93,7 @@ int JlsIF::runScript() {
 	if (errnum == 0) {
 		outputResultTrim(m_outfile);			// Trim情報出力
 		outputResultDetail(m_outscpfile);		// 構成情報出力
+		outputResultDiv(m_outdivfile);		// 分割情報出力
 	}
 
 	return errnum;
@@ -260,6 +261,14 @@ int JlsIF::expandArgOne(JlsScript &funcScript, int argrest, const char* strv, co
 				return GETONE_ERR;
 			}
 			pdata->extOpt.frmLastcut = atoi(str1);
+			numarg = 2;
+		}
+		else if (!_stricmp(strv, "-odiv")) {
+			if (!exist2) {
+				fprintf(stderr, "-odiv needs an argument\n");
+				return GETONE_ERR;
+			}
+			m_outdivfile = str1;
 			numarg = 2;
 		}
 		else{
@@ -592,6 +601,28 @@ void JlsIF::outputResultDetail(const string &outscpfile){
 	string strBuf;
 	while( pdata->outputResultDetailGetLine(strBuf) == 0){
 		ofs << strBuf << endl;
+	}
+}
+
+//---------------------------------------------------------------------
+// 分割結果出力
+//---------------------------------------------------------------------
+void JlsIF::outputResultDiv(const string &outdivfile) {
+	if (outdivfile.empty()) {
+		return;
+	}
+
+	//--- 結果出力 ---
+	CnvStrTime *ptcnv = &(pdata->cnv);
+	ofstream ofs(outdivfile.c_str());
+	if (ofs.fail()) {
+		cerr << "error:failed to open " << outdivfile << "\n";
+		return;
+	}
+	int num_data = (int)pdata->divFile.size();
+	for (int i = 0; i<num_data; ++i) {
+		int frm = ptcnv->getFrmFromMsec(pdata->divFile[i]);
+		ofs << frm << std::endl;
 	}
 }
 
