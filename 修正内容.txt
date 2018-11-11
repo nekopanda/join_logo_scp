@@ -1,3 +1,9 @@
+■修正内容(ver 3.06n by Nekopanda)
+・DivFileコマンド追加
+
+ファイル差分はgithub参照
+https://github.com/nekopanda/join_logo_scp
+
 ■修正内容(ver 3.06)
 ・主に単独構成の構成認識を調整
 
